@@ -1,0 +1,6 @@
+Flask==2.0.2
+face_recognition
+numpy
+Pillow
+gunicorn
+flask_cors

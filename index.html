@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Recognition</title>
+</head>
+<body>
+    <h1>Face Recognition Check</h1>
+    <form id="uploadForm">
+        Reference Image: <input type="file" id="referenceImage" accept="image/*"><br>
+        Image to Check: <input type="file" id="checkImage" accept="image/*"><br>
+        <button type="button" onclick="uploadImages()">Check Faces</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        function uploadImages() {
+            var form = new FormData();
+            form.append('reference', document.getElementById('referenceImage').files[0]);
+            form.append('to_check', document.getElementById('checkImage').files[0]);
+
+            fetch('/upload', {
+                method: 'POST',
+                body: form,
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').innerText = data.result;
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
